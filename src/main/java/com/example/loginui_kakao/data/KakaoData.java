@@ -10,9 +10,9 @@ public class KakaoData {
     private String email;
 
     @SerializedName("kakaoId")
-    private Long kakaoId;
+    private long kakaoId;
 
-    public KakaoData(String userName, String userEmail, Long userId) {
+    public KakaoData(String userName, String userEmail, long userId) {
         this.username = userName;
         this.email = userEmail;
         this.kakaoId = userId;

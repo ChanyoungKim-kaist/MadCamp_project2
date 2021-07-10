@@ -3,17 +3,24 @@ package com.example.loginui_kakao.data;
 import com.google.gson.annotations.SerializedName;
 
 public class KakaoResponse {
-    @SerializedName("code")
-    private int code;
+    @SerializedName("ok")
+    private boolean ok;
 
-    @SerializedName("message")
-    private String message;
+    @SerializedName("error")
+    private String error;
 
-    public int getCode() {
-        return code;
+    @SerializedName("token")
+    private String token;
+
+    public boolean getOk() {
+        return ok;
     }
 
-    public String getMessage() {
-        return message;
+    public String getError() {
+        return error;
+    }
+
+    public String getToken() {
+        return token;
     }
 }

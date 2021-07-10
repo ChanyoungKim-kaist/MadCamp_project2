@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,11 +42,23 @@ public class MainActivity extends AppCompatActivity {
     private TextView mJoinButton;
     private ProgressBar mProgressView;
     private ServiceApi service;
+    private static int SPLASH_SCREEN=5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        /*new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                startActivity(intent);
+                finish();
+            }
+        }, SPLASH_SCREEN);*/
+
 
         mSessionCallback = new ISessionCallback() {
             @Override
@@ -62,13 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(MeV2Response result) { //로그인 성공
-                        /*
-                        Intent intent = new Intent(MainActivity.this, SubActivity.class);
-                        intent.putExtra("name", result.getKakaoAccount().getProfile().getNickname());
-                        intent.putExtra("profileImg", result.getKakaoAccount().getProfile().getProfileImageUrl());
-                        intent.putExtra("email", result.getKakaoAccount().getEmail());
-                        startActivity(intent);*/
-
                         long userId = result.getId();
                         String userName = result.getKakaoAccount().getProfile().getNickname();
                         String userEmail = result.getKakaoAccount().getEmail();
@@ -76,7 +83,14 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<KakaoResponse> call, Response<KakaoResponse> response) {
                                 KakaoResponse result = response.body();
-                                Toast.makeText(MainActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (result.getOk()) {
+                                    Toast.makeText(MainActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
+                                    String token = result.getToken();
+                                    Intent loginintent = new Intent(getApplicationContext(), SuccessActivity.class);
+                                    loginintent.putExtra("token", token);
+                                    startActivity(loginintent);
+                                } else
+                                    Toast.makeText(MainActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -198,7 +212,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean isPasswordValid(String password) {
         return password.length() >= 6;
     }
-
 
     private void showProgress(boolean show) {
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);

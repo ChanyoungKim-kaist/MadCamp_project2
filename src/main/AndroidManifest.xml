@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginUI_kakao"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SuccessActivity"></activity>
+        <activity android:name=".ListActivity"></activity>
+        <activity android:name=".SuccessActivity" />
         <activity android:name=".JoinActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

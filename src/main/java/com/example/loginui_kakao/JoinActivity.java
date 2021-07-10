@@ -109,11 +109,13 @@ public class JoinActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
                 JoinResponse result = response.body();
-                Toast.makeText(JoinActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(JoinActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
                 showProgress(false);
 
-                if (result.getCode() == 200) {
+                if (result.getOk()) {
                     finish();
+                } else {
+                    Toast.makeText(JoinActivity.this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
             }
 
