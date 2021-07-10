@@ -168,7 +168,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse result = response.body();
-                Toast.makeText(MainActivity.this, result.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("result", result.toString());
+                if (result.getOk()) {
+                    Toast.makeText(MainActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
+                    String token = result.getToken();
+                    Intent loginintent = new Intent(getApplicationContext(), SuccessActivity.class);
+                    loginintent.putExtra("token", token);
+                    startActivity(loginintent);
+                }
+                else
+                    Toast.makeText(MainActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
                 //showProgress(false);
             }
 
