@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".SuccessActivity"
+    android:background="@color/lightWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <ImageView
+                android:id="@+id/back_pressed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="15dp"
+                android:src="@drawable/ic_round_arrow_back_24" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_more_vert_24"
+                android:layout_alignParentRight="true"/>
+
+            <SearchView
+                android:id="@+id/search_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/logout"
+                android:layout_marginTop="14dp"
+                android:padding="15dp" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Categories"
+            android:textSize="30sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:padding="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/health2">
+
+            <TextView
+                android:id="@+id/health"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Health"
+                android:textSize="30sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/white"
+                android:padding="25dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/study">
+
+            <TextView
+                android:id="@+id/study"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Study"
+                android:textSize="30sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:padding="25dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/salon2">
+
+            <TextView
+                android:id="@+id/salon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salon"
+                android:textSize="30sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:padding="25dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/restaurant">
+
+            <TextView
+                android:id="@+id/restaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Restaurant"
+                android:textSize="30sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:padding="25dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/cafe1">
+
+            <TextView
+                android:id="@+id/cafe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cafe"
+                android:textSize="30sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/white"
+                android:padding="25dp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/dormitory">
+
+            <TextView
+                android:id="@+id/dormitory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dormitory"
+                android:textSize="30sp"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:padding="25dp"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

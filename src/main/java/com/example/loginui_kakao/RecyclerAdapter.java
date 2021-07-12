@@ -1,7 +1,6 @@
 package com.example.loginui_kakao;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,55 +9,67 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.loginui_kakao.data.Categories;
+
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter <RecyclerAdapter.MyViewHolder>{
-    private Categories categoriesList;
-    private List<String> titles;
-    private List<String> subtitles;
-    private List<String> ids;
+    //private Categories categoriesList;
+    private List<PostItem> posts;
     private Context context;
+    private OnNoteListener mOnNoteListener;
 
-    public RecyclerAdapter(Categories categoriesList, Context context){
-        this.categoriesList = categoriesList;
-        this.titles = categoriesList.getTitle();
-        this.subtitles = categoriesList.getSubtitle();
-        this.ids = categoriesList.getId();
+    public RecyclerAdapter(List<PostItem> posts, Context context, OnNoteListener onNoteListener){
+        //this.categoriesList = categoriesList;
+        this.posts = posts;
         this.context = context;
+        this.mOnNoteListener = onNoteListener;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.raw_layout, parent, false);
-
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, mOnNoteListener);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        //holder.Title.setText(categoriesList.getTitle());
-        //holder.subtitle.setText(categoriesList.get(position).getSubtitle());
-        holder.Title.setText(titles.get(position));
-        holder.subtitle.setText(subtitles.get(position));
+        holder.Title.setText(posts.get(position).getTitle());
+        holder.subtitle.setText(posts.get(position).getSubtitle());
+        holder.AuthorId.setText(String.valueOf(posts.get(position).getAuthorId()));
+        holder.Likes.setText(String.valueOf(posts.get(position).getLikes()));
     }
 
     @Override
     public int getItemCount() {
-        return categoriesList.getTitle().size();
+        return posts.size();
+
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public interface OnNoteListener {
+        void onNoteClick(int position);
+    }
 
-        TextView Title, subtitle;
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public MyViewHolder(@NonNull View itemView) {
+        TextView Title, subtitle, AuthorId, Likes;
+        OnNoteListener onNoteListener;
+
+        public MyViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             Title = (TextView) itemView.findViewById(R.id.txt_title);
             subtitle = (TextView) itemView.findViewById(R.id.txt_sub);
+            AuthorId = (TextView) itemView.findViewById(R.id.txt_author);
+            Likes = (TextView) itemView.findViewById(R.id.likes);
+            this.onNoteListener = onNoteListener;
 
+            itemView.setOnClickListener(this);
+        }
 
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition());
         }
     }
-
 }

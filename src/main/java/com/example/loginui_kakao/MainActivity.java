@@ -1,5 +1,6 @@
 package com.example.loginui_kakao;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -79,26 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         long userId = result.getId();
                         String userName = result.getKakaoAccount().getProfile().getNickname();
                         String userEmail = result.getKakaoAccount().getEmail();
-                        service.userKakao(new KakaoData(userName, userEmail, userId)).enqueue(new Callback<KakaoResponse>() {
-                            @Override
-                            public void onResponse(Call<KakaoResponse> call, Response<KakaoResponse> response) {
-                                KakaoResponse result = response.body();
-                                if (result.getOk()) {
-                                    Toast.makeText(MainActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
-                                    String token = result.getToken();
-                                    Intent loginintent = new Intent(getApplicationContext(), SuccessActivity.class);
-                                    loginintent.putExtra("token", token);
-                                    startActivity(loginintent);
-                                } else
-                                    Toast.makeText(MainActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onFailure(Call<KakaoResponse> call, Throwable t) {
-                                Toast.makeText(MainActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
-                                Log.e("로그인 에러 발생", t.getMessage());
-                            }
-                        });
+                        kakaoLogin(new KakaoData(userName, userEmail, userId));
                         Toast.makeText(MainActivity.this, "환영합니다!", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -182,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse result = response.body();
-                Log.e("result", result.toString());
+
                 if (result.getOk()) {
                     Toast.makeText(MainActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
                     String token = result.getToken();
@@ -205,6 +187,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void kakaoLogin(KakaoData data) {
+        service.userKakao(data).enqueue(new Callback<KakaoResponse>() {
+            @Override
+            public void onResponse(Call<KakaoResponse> call, Response<KakaoResponse> response) {
+                KakaoResponse result = response.body();
+                if (result.getOk()) {
+                    Toast.makeText(MainActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
+                    String token = result.getToken();
+                    Intent loginintent = new Intent(getApplicationContext(), SuccessActivity.class);
+                    loginintent.putExtra("token", token);
+                    startActivity(loginintent);
+                }
+                else
+                    Toast.makeText(MainActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<KakaoResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "로그인 에러 발생", Toast.LENGTH_SHORT).show();
+                Log.e("로그인 에러 발생", t.getMessage());
+            }
+        });
+    }
+
     private boolean isEmailValid(String email) {
         return email.contains("@");
     }
@@ -215,5 +221,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void showProgress(boolean show) {
         mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data))
+            super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Session.getCurrentSession().removeCallback(mSessionCallback);
     }
 }
