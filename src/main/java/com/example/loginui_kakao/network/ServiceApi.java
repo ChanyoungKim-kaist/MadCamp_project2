@@ -9,6 +9,7 @@ import com.example.loginui_kakao.data.KakaoResponse;
 import com.example.loginui_kakao.data.LikeResponse;
 import com.example.loginui_kakao.data.LoginData;
 import com.example.loginui_kakao.data.LoginResponse;
+import com.example.loginui_kakao.data.NewCommentData;
 import com.example.loginui_kakao.data.PostData;
 import com.example.loginui_kakao.data.PostResponse;
 import com.example.loginui_kakao.data.postId;
@@ -46,4 +47,7 @@ public interface ServiceApi {
 
     @GET("/search")
     Call<Categories> getSearch(@Query("query") String data);
+
+    @POST("/posts/comment")
+    Call<PostResponse> postComment(@Body NewCommentData data, @Header("token") String token);
 }

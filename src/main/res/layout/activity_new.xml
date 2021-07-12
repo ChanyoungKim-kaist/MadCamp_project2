@@ -110,12 +110,17 @@
         android:layout_marginRight="12dp"
         android:src="@drawable/line2"/>
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_comment"
+        android:layout_width="match_parent"
+        android:layout_below="@id/bar5"
+        android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/bar5"
         android:id="@+id/comment_list"
         tools:listitem="@layout/comment"/>
-
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

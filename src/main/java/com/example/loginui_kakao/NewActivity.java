@@ -3,6 +3,7 @@ package com.example.loginui_kakao;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class NewActivity extends AppCompatActivity {
     private CommentResponse comment;
     private List<CommentItem> commentlist;
     private RecyclerView.LayoutManager layoutManager;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class NewActivity extends AppCompatActivity {
         TextView username_detail = findViewById(R.id.username_detail);
         ImageView comment_icon = findViewById(R.id.comment);
         TextView comment_txt = findViewById(R.id.comment_text);
+        swipeRefreshLayout = findViewById(R.id.swipe_comment);
 
         title_detail.setText(title);
         contents_detail.setText(content);
@@ -121,10 +124,39 @@ public class NewActivity extends AppCompatActivity {
         comment_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(NewActivity.this, NewCommentActivity.class);
+                intent.putExtra("postId", pos);
+                intent.putExtra("token", token);
+                startActivity(intent);
             }
         });
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Call<CommentResponse> call = service.getComment(pos);
+                call.enqueue(new Callback<CommentResponse>() {
+                    @Override
+                    public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
+                        //Toast.makeText(ListActivity.this, "클", Toast.LENGTH_SHORT).show();
+                        comment = response.body();
+                        if (comment.getOk()) {
+                            commentlist = comment.getComments();
+                            comment_txt.setText(String.valueOf(commentlist.size()));
+                            adapter = new CommentAdapter(commentlist, NewActivity.this);
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<CommentResponse> call, Throwable t) {
+                        Log.e("로그인 에러 발생", t.getMessage());
+                        Toast.makeText(NewActivity.this, "실패", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
 
     }
