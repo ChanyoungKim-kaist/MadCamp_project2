@@ -14,7 +14,9 @@
         android:theme="@style/Theme.LoginUI_kakao"
         android:usesCleartextTraffic="true">
         <activity android:name=".NewActivity"></activity>
-        <activity android:name=".NewPostActivity" />
+        <activity android:name=".NewPostActivity"
+            android:parentActivityName=".ListActivity"
+            />
         <activity android:name=".ListActivity" />
         <activity android:name=".SuccessActivity" />
         <activity android:name=".JoinActivity" />

@@ -49,7 +49,6 @@ public class SuccessActivity extends AppCompatActivity {
         TextView study = findViewById(R.id.study);
         TextView cafe = findViewById(R.id.cafe);
         TextView dormitory = findViewById(R.id.dormitory);
-        SearchView search = findViewById(R.id.search_category);
         ImageView logout = findViewById(R.id.logout);
 
         service = RetrofitClient.getClient().create(ServiceApi.class);
@@ -86,17 +85,6 @@ public class SuccessActivity extends AppCompatActivity {
             }
         });
 
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
 
         restaurant.setOnClickListener(new View.OnClickListener() {
             @Override

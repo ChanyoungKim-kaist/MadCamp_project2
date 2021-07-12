@@ -15,7 +15,7 @@
             android:text="제목"
             android:fontFamily="@font/nanumgothic"
             android:layout_marginTop="15dp"
-            android:textSize="21sp"
+            android:textSize="17sp"
             style="@style/TextAppearance.AppCompat.Headline"/>
 
         <TextView
@@ -27,13 +27,14 @@
             android:ellipsize="end"
             android:id="@+id/txt_sub"
             android:text="부제"
+            android:textSize="14sp"
             android:fontFamily="@font/nanumgothic"
             style="@style/TextAppearance.AppCompat.Subhead"/>
 
         <ImageView
             android:id="@+id/thumb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:src="@drawable/ic_baseline_thumb_up_alt_24"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
@@ -59,6 +60,7 @@
             android:id="@+id/txt_author"
             android:layout_marginBottom="12dp"
             android:text="정이든-2donny"
+            android:textSize="13sp"
             android:fontFamily="@font/nanumlight"
             style="@style/TextAppearance.AppCompat.Body1"/>
         <ImageView

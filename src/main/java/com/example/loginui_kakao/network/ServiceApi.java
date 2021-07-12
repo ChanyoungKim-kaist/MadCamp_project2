@@ -11,6 +11,7 @@ import com.example.loginui_kakao.data.LoginData;
 import com.example.loginui_kakao.data.LoginResponse;
 import com.example.loginui_kakao.data.PostData;
 import com.example.loginui_kakao.data.PostResponse;
+import com.example.loginui_kakao.data.postId;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,8 +38,8 @@ public interface ServiceApi {
     @POST("/posts")
     Call<PostResponse> userPost(@Body PostData data, @Header("token") String token);
 
-    @POST("/posts/toggleLike")
-    Call<LikeResponse> postLike(@Body int postId, @Header("token") String token);
+    @POST("/posts/like")
+    Call<LikeResponse> postLike(@Body postId postId, @Header("token") String token);
 
     @GET("/posts/comments/{postId}")
     Call<CommentResponse> getComment(@Path("postId") int postId);

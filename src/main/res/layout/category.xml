@@ -12,37 +12,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp">
+        <ImageView
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            android:src="@drawable/ic_round_arrow_back_24" />
 
-            <ImageView
-                android:id="@+id/back_pressed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:padding="15dp"
-                android:src="@drawable/ic_round_arrow_back_24" />
-
-            <ImageView
-                android:id="@+id/logout"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_more_vert_24"
-                android:layout_alignParentRight="true"/>
-
-            <SearchView
-                android:id="@+id/search_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@id/logout"
-                android:layout_marginTop="14dp"
-                android:padding="15dp" />
-
-
-        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"

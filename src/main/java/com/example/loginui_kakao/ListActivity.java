@@ -3,10 +3,13 @@ package com.example.loginui_kakao;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -35,6 +38,8 @@ public class ListActivity extends AppCompatActivity implements RecyclerAdapter.O
     private List<PostItem> posts;
     private int type;
     private String token;
+    private ImageView back;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,56 +49,77 @@ public class ListActivity extends AppCompatActivity implements RecyclerAdapter.O
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview_category);
         fab = (FloatingActionButton) findViewById(R.id.fab_list);
         search = (SearchView) findViewById(R.id.search_post);
+        back = (ImageView) findViewById(R.id.back_pressed2);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+        swipeRefreshLayout = findViewById(R.id.swipe);
 
-        if (getIntent().getExtras() != null) {
-            type = getIntent().getExtras().getInt("category");
-            token = getIntent().getStringExtra("token");
-            fetchInformation(type);
+        type = getIntent().getExtras().getInt("category");
+        token = getIntent().getStringExtra("token");
+        fetchInformation(type);
 
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(ListActivity.this, NewPostActivity.class);
-                    intent.putExtra("category", type);
-                    intent.putExtra("token", token);
-                    startActivity(intent);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ListActivity.this, NewPostActivity.class);
+                intent.putExtra("category", type);
+                intent.putExtra("token", token);
+                startActivity(intent);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                fetchPosts(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fetchPosts(newText);
+                return false;
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchInformation(type);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+    }
+
+
+    public void fetchPosts(String key) {
+        Call<Categories> call = service.getSearch(key);
+        call.enqueue(new Callback<Categories>() {
+            @Override
+            public void onResponse(Call<Categories> call, Response<Categories> response) {
+                //Toast.makeText(ListActivity.this, "클", Toast.LENGTH_SHORT).show();
+                categoriesList = response.body();
+                if (categoriesList.getOk()) {
+                    posts = categoriesList.getPosts();
+                    adapter = new RecyclerAdapter(posts, ListActivity.this, ListActivity.this);
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
-            });
-
-            search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    Call<Categories> call = service.getSearch(newText);
-                    call.enqueue(new Callback<Categories>() {
-                        @Override
-                        public void onResponse(Call<Categories> call, Response<Categories> response) {
-                            //Toast.makeText(ListActivity.this, "클", Toast.LENGTH_SHORT).show();
-                            categoriesList = response.body();
-                            if (categoriesList.getOk()) {
-                                posts = categoriesList.getPosts();
-                                adapter = new RecyclerAdapter(posts, ListActivity.this, ListActivity.this);
-                                recyclerView.setAdapter(adapter);
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Categories> call, Throwable t) {
-                            Log.e("로그인 에러 발생", t.getMessage());
-                            Toast.makeText(ListActivity.this, "실패", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    return false;
-                }
-            });
-        }
+            }
+            @Override
+            public void onFailure(Call<Categories> call, Throwable t) {
+                Log.e("로그인 에러 발생", t.getMessage());
+                Toast.makeText(ListActivity.this, "실패", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void fetchInformation(int type){
@@ -130,6 +156,8 @@ public class ListActivity extends AppCompatActivity implements RecyclerAdapter.O
         intent.putExtra("title", posts.get(position).getTitle());
         intent.putExtra("contents", posts.get(position).getSubtitle());
         intent.putExtra("likes", posts.get(position).getLikes());
+        intent.putExtra("category", type);
+        intent.putExtra("username", posts.get(position).getAuthorId());
         startActivity(intent);
     }
 }

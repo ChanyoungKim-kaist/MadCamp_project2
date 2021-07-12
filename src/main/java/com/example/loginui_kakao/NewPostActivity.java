@@ -31,6 +31,8 @@ public class NewPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
+        ImageView back = findViewById(R.id.back_pressed3);
+
         service = RetrofitClient.getClient().create(ServiceApi.class);
 
         if (getIntent().getExtras() != null) {
@@ -40,6 +42,12 @@ public class NewPostActivity extends AppCompatActivity {
             title = (EditText) findViewById(R.id.make_title);
             content = (EditText) findViewById(R.id.make_contents);
             check = (ImageView) findViewById(R.id.check);
+
+            back.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    finish();
+                }
+            });
 
             check.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -59,10 +67,7 @@ public class NewPostActivity extends AppCompatActivity {
                                 //Log.e("result", result.toString());
                                 if (result.getOk()) {
                                     Toast.makeText(NewPostActivity.this, "게시 성공!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(NewPostActivity.this, ListActivity.class);
-                                    intent.putExtra("category", type);
-                                    intent.putExtra("token", token);
-                                    startActivity(intent);
+                                    finish();
                                 }
                                 else
                                     Toast.makeText(NewPostActivity.this, result.getError(), Toast.LENGTH_SHORT).show();
