@@ -1,4 +1,4 @@
-package com.example.loginui_kakao;
+package com.example.loginui_kakao.data;
 
 import com.example.loginui_kakao.data.CommentItem;
 import com.google.gson.annotations.SerializedName;

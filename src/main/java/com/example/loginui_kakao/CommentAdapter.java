@@ -17,17 +17,19 @@ public class CommentAdapter extends RecyclerView.Adapter <CommentAdapter.MyViewH
     //private Categories categoriesList;
     private List<CommentItem> comments;
     private Context context;
+    private OnCommentListener mOnCommentListener;
 
-    public CommentAdapter(List<CommentItem> comments, Context context) {
+    public CommentAdapter(List<CommentItem> comments, Context context, OnCommentListener onCommentListener) {
         this.comments = comments;
         this.context = context;
+        this.mOnCommentListener = onCommentListener;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comment, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, mOnCommentListener);
     }
 
     @Override
@@ -42,14 +44,27 @@ public class CommentAdapter extends RecyclerView.Adapter <CommentAdapter.MyViewH
 
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public interface OnCommentListener {
+        void onCommentClick(int position);
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView Content, Id;
+        OnCommentListener onCommentListener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, OnCommentListener onCommentListener) {
             super(itemView);
             Content = (TextView) itemView.findViewById(R.id.comment_content);
             Id = (TextView) itemView.findViewById(R.id.comment_id);
+            this.onCommentListener = onCommentListener;
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onCommentListener.onCommentClick(getAdapterPosition());
         }
     }
 }

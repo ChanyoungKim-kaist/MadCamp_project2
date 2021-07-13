@@ -8,14 +8,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.loginui_kakao.data.Categories;
+import com.example.loginui_kakao.data.PostItem;
 import com.example.loginui_kakao.network.RetrofitClient;
 import com.example.loginui_kakao.network.ServiceApi;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,7 +32,7 @@ public class ListActivity extends AppCompatActivity implements RecyclerAdapter.O
     private RecyclerView.LayoutManager layoutManager;
     private Categories categoriesList;
     private RecyclerAdapter adapter;
-    private ServiceApi service;
+    private ServiceApi service = RetrofitClient.getClient().create(ServiceApi.class);
     private SearchView search;
     private List<PostItem> posts;
     private int type;

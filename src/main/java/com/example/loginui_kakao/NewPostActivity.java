@@ -35,7 +35,7 @@ public class NewPostActivity extends AppCompatActivity {
 
         service = RetrofitClient.getClient().create(ServiceApi.class);
 
-        if (getIntent().getExtras() != null) {
+        if (getIntent().getExtras() != null ) {
             int type = getIntent().getExtras().getInt("category");
             String token = getIntent().getExtras().getString("token");
 
@@ -66,7 +66,7 @@ public class NewPostActivity extends AppCompatActivity {
                                 PostResponse result = response.body();
                                 //Log.e("result", result.toString());
                                 if (result.getOk()) {
-                                    Toast.makeText(NewPostActivity.this, "게시 성공!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(NewPostActivity.this, "게시 성공!📝️", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                                 else

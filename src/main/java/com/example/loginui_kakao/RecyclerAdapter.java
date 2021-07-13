@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.loginui_kakao.data.Categories;
+import com.example.loginui_kakao.data.PostItem;
 
 import java.util.List;
 

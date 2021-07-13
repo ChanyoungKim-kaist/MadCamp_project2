@@ -5,17 +5,22 @@ import com.google.gson.annotations.SerializedName;
 public class CommentItem {
 
     @SerializedName("payload")
-    private String subtitle;
+    private String payload;
 
     @SerializedName("userId")
-    private String title;
+    private String userId;
+
+    @SerializedName("id")
+    private int commentId;
 
     public String getAuthorId() {
-        return title;
+        return userId;
     }
 
     public String getContents() {
-        return subtitle;
+        return payload;
     }
+
+    public int getCommentId() { return commentId; }
 
 }

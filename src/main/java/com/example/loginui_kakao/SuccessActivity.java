@@ -32,7 +32,6 @@ import retrofit2.Response;
 public class SuccessActivity extends AppCompatActivity {
 
     private ServiceApi service;
-    private List<String> items = Arrays.asList("restaurant", "salon", "study");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +49,15 @@ public class SuccessActivity extends AppCompatActivity {
         TextView cafe = findViewById(R.id.cafe);
         TextView dormitory = findViewById(R.id.dormitory);
         ImageView logout = findViewById(R.id.logout);
+        ImageView edit = findViewById(R.id.edit5);
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(SuccessActivity.this, UserInformation.class);
+                intent.putExtra("token", token);
+                startActivity(intent);
+            }
+        });
 
         service = RetrofitClient.getClient().create(ServiceApi.class);
 
@@ -57,7 +65,7 @@ public class SuccessActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(SuccessActivity.this); // ?? this
+                AlertDialog.Builder builder = new AlertDialog.Builder(SuccessActivity.this);
                 builder.setTitle("로그아웃 하시겠습니까?").setMessage("로그아웃을 원하시면 확인 버튼을 눌러주세요");
 
                 builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -84,7 +92,6 @@ public class SuccessActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
-
 
         restaurant.setOnClickListener(new View.OnClickListener() {
             @Override

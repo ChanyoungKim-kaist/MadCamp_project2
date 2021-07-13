@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                         String userName = result.getKakaoAccount().getProfile().getNickname();
                         String userEmail = result.getKakaoAccount().getEmail();
                         kakaoLogin(new KakaoData(userName, userEmail, userId));
-                        Toast.makeText(MainActivity.this, "환영합니다!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -166,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 LoginResponse result = response.body();
 
                 if (result.getOk()) {
-                    Toast.makeText(MainActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "환영합니다!😊", Toast.LENGTH_SHORT).show();
                     String token = result.getToken();
                     Intent loginintent = new Intent(getApplicationContext(), SuccessActivity.class);
                     loginintent.putExtra("token", token);
@@ -193,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<KakaoResponse> call, Response<KakaoResponse> response) {
                 KakaoResponse result = response.body();
                 if (result.getOk()) {
-                    Toast.makeText(MainActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "환영합니다!😊", Toast.LENGTH_SHORT).show();
                     String token = result.getToken();
                     Intent loginintent = new Intent(getApplicationContext(), SuccessActivity.class);
                     loginintent.putExtra("token", token);
