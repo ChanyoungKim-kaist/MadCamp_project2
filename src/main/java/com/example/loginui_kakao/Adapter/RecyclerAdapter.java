@@ -1,4 +1,4 @@
-package com.example.loginui_kakao;
+package com.example.loginui_kakao.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.loginui_kakao.R;
 import com.example.loginui_kakao.data.PostItem;
 
 import java.util.List;

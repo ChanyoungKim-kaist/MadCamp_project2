@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.loginui_kakao.Adapter.RecyclerAdapter;
 import com.example.loginui_kakao.data.Categories;
 import com.example.loginui_kakao.data.PostItem;
 import com.example.loginui_kakao.network.RetrofitClient;

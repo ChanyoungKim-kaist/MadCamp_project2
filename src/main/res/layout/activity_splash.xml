@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".SplashActivity">
+
+    <RelativeLayout
+        android:layout_width="414dp"
+        android:layout_height="686dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-3dp"
+        tools:layout_editor_absoluteY="-3dp">
+
+        <ImageView
+            android:id="@+id/b"
+            android:layout_width="wrap_content"
+            android:layout_height="260dp"
+            android:background="@drawable/blue_bg" />
+
+        <TextView
+            android:id="@+id/c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/b"
+            android:layout_margin="50dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Ask Me Kaist"
+            android:textColor="#1566e0"
+            android:textSize="36dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="273dp"
+            android:layout_below="@id/c"
+            android:background="@drawable/blue_bg"
+            android:rotation="180" />
+
+    </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

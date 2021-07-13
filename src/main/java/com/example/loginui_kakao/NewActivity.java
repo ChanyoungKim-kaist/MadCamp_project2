@@ -15,16 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.loginui_kakao.Adapter.CommentAdapter;
 import com.example.loginui_kakao.data.CommentItem;
 import com.example.loginui_kakao.data.CommentResponse;
 import com.example.loginui_kakao.data.LikeResponse;
-import com.example.loginui_kakao.data.PostData;
 import com.example.loginui_kakao.data.PostResponse;
 import com.example.loginui_kakao.data.postId;
 import com.example.loginui_kakao.network.RetrofitClient;
 import com.example.loginui_kakao.network.ServiceApi;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import java.util.List;
 
